@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CuposFácil — Suscripciones Premium</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #080c14;
+    --bg2: #0d1421;
+    --bg3: #111827;
+    --border: #1e2d45;
+    --cyan: #00d4ff;
+    --cyan2: #0099cc;
+    --blue: #0047ab;
+    --text: #e8f0fe;
+    --muted: #6b7fa3;
+    --card: #0f1a2e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* NAVBAR */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(8,12,20,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.4rem;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+
+  .logo span { color: var(--cyan); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.9rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  .nav-cta {
+    background: var(--cyan); color: var(--bg);
+    border: none; padding: 8px 20px;
+    border-radius: 8px; font-weight: 600;
+    font-size: 0.9rem; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    padding: 140px 5% 80px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.25);
+    color: var(--cyan); font-size: 0.8rem; font-weight: 600;
+    padding: 6px 14px; border-radius: 100px;
+    margin-bottom: 24px; letter-spacing: 0.5px;
+  }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -1.5px; margin-bottom: 20px;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--cyan), #4facfe);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .hero p {
+    color: var(--muted); font-size: 1.1rem;
+    max-width: 520px; margin: 0 auto 36px;
+    line-height: 1.7;
+  }
+
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--cyan); color: var(--bg);
+    border: none; padding: 14px 28px;
+    border-radius: 10px; font-weight: 700;
+    font-size: 1rem; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,255,0.3); }
+
+  .btn-secondary {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border); padding: 14px 28px;
+    border-radius: 10px; font-weight: 600;
+    font-size: 1rem; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  .hero-stats {
+    display: flex; gap: 40px; justify-content: center;
+    margin-top: 60px; flex-wrap: wrap;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem; font-weight: 800;
+    color: var(--cyan);
+  }
+  .stat-label { color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+
+  /* FILTROS */
+  .section { padding: 80px 5%; }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem; font-weight: 700;
+    text-align: center; margin-bottom: 12px;
+  }
+  .section-sub {
+    color: var(--muted); text-align: center;
+    margin-bottom: 40px; font-size: 0.95rem;
+  }
+
+  .filters {
+    display: flex; gap: 10px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 48px;
+  }
+
+  .filter-btn {
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--muted); padding: 8px 18px;
+    border-radius: 100px; font-size: 0.85rem;
+    font-weight: 500; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: rgba(0,212,255,0.1);
+    border-color: var(--cyan); color: var(--cyan);
+  }
+
+  /* GRID DE SERVICIOS */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px; max-width: 1200px; margin: 0 auto;
+  }
+
+  .service-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    transition: all 0.3s; cursor: pointer;
+    position: relative;
+  }
+
+  .service-card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,212,255,0.1);
+  }
+
+  .service-card.inactive {
+    opacity: 0.4; pointer-events: none;
+  }
+
+  .card-header {
+    padding: 24px; display: flex;
+    align-items: center; gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .service-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; flex-shrink: 0;
+  }
+
+  .service-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.1rem;
+  }
+
+  .service-type {
+    color: var(--muted); font-size: 0.8rem; margin-top: 2px;
+  }
+
+  .badge-new {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--cyan); color: var(--bg);
+    font-size: 0.7rem; font-weight: 700;
+    padding: 3px 8px; border-radius: 100px;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-hot {
+    position: absolute; top: 12px; right: 12px;
+    background: #ff4757; color: #fff;
+    font-size: 0.7rem; font-weight: 700;
+    padding: 3px 8px; border-radius: 100px;
+  }
+
+  .card-body { padding: 20px 24px; }
+
+  .service-desc {
+    color: var(--muted); font-size: 0.88rem;
+    line-height: 1.6; margin-bottom: 16px;
+  }
+
+  .service-features {
+    list-style: none; margin-bottom: 20px;
+  }
+
+  .service-features li {
+    font-size: 0.82rem; color: var(--muted);
+    padding: 4px 0; display: flex; align-items: center; gap: 8px;
+  }
+
+  .service-features li::before {
+    content: '✓'; color: var(--cyan);
+    font-weight: 700; font-size: 0.75rem;
+  }
+
+  .card-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center;
+    justify-content: space-between;
+  }
+
+  .price-block {}
+  .price-label { color: var(--muted); font-size: 0.75rem; }
+  .price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem; font-weight: 800;
+    color: var(--cyan);
+  }
+  .price span { font-size: 0.9rem; font-weight: 500; color: var(--muted); }
+
+  .btn-add {
+    background: rgba(0,212,255,0.12);
+    border: 1px solid rgba(0,212,255,0.3);
+    color: var(--cyan); padding: 10px 18px;
+    border-radius: 8px; font-weight: 600;
+    font-size: 0.88rem; cursor: pointer;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .btn-add:hover {
+    background: var(--cyan); color: var(--bg);
+  }
+
+  /* CARRITO */
+  .cart-float {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--cyan); color: var(--bg);
+    border: none; border-radius: 50px;
+    padding: 14px 24px; font-weight: 700;
+    font-size: 0.95rem; cursor: pointer;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 8px 32px rgba(0,212,255,0.35);
+    transition: all 0.2s; z-index: 50;
+    transform: translateY(100px); opacity: 0;
+  }
+  .cart-float.visible {
+    transform: translateY(0); opacity: 1;
+  }
+  .cart-float:hover { transform: translateY(-3px); }
+
+  .cart-count {
+    background: var(--bg); color: var(--cyan);
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 800;
+  }
+
+  /* MODAL CARRITO */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    z-index: 200; display: none;
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px; width: 100%;
+    max-width: 500px; max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-header {
+    padding: 24px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .modal-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem; font-weight: 700;
+  }
+
+  .modal-close {
+    background: var(--bg3); border: 1px solid var(--border);
+    color: var(--muted); width: 32px; height: 32px;
+    border-radius: 8px; cursor: pointer;
+    font-size: 1rem; display: flex;
+    align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { color: var(--text); border-color: var(--cyan); }
+
+  .modal-body { padding: 24px; }
+
+  .cart-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+  }
+
+  .cart-item:last-child { border-bottom: none; }
+
+  .cart-item-info { display: flex; align-items: center; gap: 12px; }
+  .cart-item-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .cart-item-name { font-weight: 600; font-size: 0.95rem; }
+  .cart-item-sub { color: var(--muted); font-size: 0.8rem; }
+
+  .cart-item-right { display: flex; align-items: center; gap: 12px; }
+  .cart-item-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; color: var(--cyan);
+  }
+  .cart-remove {
+    background: none; border: none;
+    color: var(--muted); cursor: pointer;
+    font-size: 1.1rem; transition: color 0.2s;
+    padding: 4px;
+  }
+  .cart-remove:hover { color: #ff4757; }
+
+  .cart-empty {
+    text-align: center; padding: 40px 0;
+    color: var(--muted);
+  }
+  .cart-empty-icon { font-size: 3rem; margin-bottom: 12px; }
+
+  .cart-total {
+    background: var(--bg3); border-radius: 12px;
+    padding: 16px; margin-top: 16px;
+    display: flex; justify-content: space-between;
+    align-items: center;
+  }
+  .cart-total-label { font-weight: 600; }
+  .cart-total-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem; font-weight: 800;
+    color: var(--cyan);
+  }
+
+  /* FORMULARIO CHECKOUT */
+  .checkout-form { margin-top: 20px; }
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    display: block; font-size: 0.85rem;
+    font-weight: 600; margin-bottom: 6px;
+    color: var(--muted);
+  }
+  .form-input {
+    width: 100%; background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text); padding: 12px 14px;
+    border-radius: 10px; font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-input:focus { border-color: var(--cyan); }
+
+  .payment-methods {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin-top: 8px;
+  }
+
+  .payment-opt {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.85rem; font-weight: 500;
+  }
+  .payment-opt:hover, .payment-opt.selected {
+    border-color: var(--cyan);
+    background: rgba(0,212,255,0.08);
+    color: var(--cyan);
+  }
+  .payment-opt .pay-icon { font-size: 1.2rem; }
+
+  .btn-checkout {
+    width: 100%; background: var(--cyan);
+    color: var(--bg); border: none;
+    padding: 14px; border-radius: 10px;
+    font-weight: 700; font-size: 1rem;
+    cursor: pointer; margin-top: 20px;
+    transition: all 0.2s;
+  }
+  .btn-checkout:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-checkout:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .checkout-note {
+    text-align: center; color: var(--muted);
+    font-size: 0.8rem; margin-top: 12px;
+  }
+
+  /* SECCIÓN COMO FUNCIONA */
+  .how-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 32px; max-width: 900px; margin: 0 auto;
+  }
+
+  .step { text-align: center; }
+  .step-num {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.25);
+    color: var(--cyan); font-family: 'Space Grotesk', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .step-title { font-weight: 700; margin-bottom: 8px; }
+  .step-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 40px 5%; text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem; font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .footer-logo span { color: var(--cyan); }
+  .footer-text { color: var(--muted); font-size: 0.85rem; }
+  .footer-wa {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 16px; color: var(--cyan);
+    text-decoration: none; font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  /* ADMIN TOGGLE (oculto en producción, visible para admin) */
+  .admin-bar {
+    background: rgba(0,212,255,0.05);
+    border-bottom: 1px solid rgba(0,212,255,0.15);
+    padding: 8px 5%; display: none;
+    align-items: center; gap: 12px;
+    font-size: 0.82rem; color: var(--muted);
+  }
+  .admin-bar.visible { display: flex; }
+  .admin-toggle {
+    background: var(--bg3); border: 1px solid var(--border);
+    color: var(--cyan); padding: 4px 12px;
+    border-radius: 6px; font-size: 0.8rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .admin-toggle:hover { border-color: var(--cyan); }
+
+  /* SUCCESS */
+  .success-modal {
+    text-align: center; padding: 40px 24px;
+  }
+  .success-icon { font-size: 4rem; margin-bottom: 16px; }
+  .success-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem; font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .success-text { color: var(--muted); line-height: 1.6; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hero { padding: 100px 5% 60px; }
+    .hero-stats { gap: 24px; }
+    .payment-methods { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ADMIN BAR (solo para ti) -->
+<div class="admin-bar" id="adminBar">
+  🛠️ Modo administrador activo
+  <button class="admin-toggle" onclick="toggleAdminMode()">Salir</button>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">Cupos<span>Fácil</span></div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#como-funciona">¿Cómo funciona?</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-cta" onclick="scrollToServices()">Ver servicios</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">✦ Suscripciones digitales premium</div>
+  <h1>Accede a lo mejor<br>del streaming<br><span>al mejor precio</span></h1>
+  <p>Netflix, Spotify, Disney+ y más. Cupos compartidos de alta calidad, activación inmediata y soporte directo por WhatsApp.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="scrollToServices()">Ver servicios disponibles</button>
+    <button class="btn-secondary" onclick="openWhatsApp()">📲 Escríbenos por WhatsApp</button>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num" id="clientCount">50+</div>
+      <div class="stat-label">Clientes activos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Servicios disponibles</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24h</div>
+      <div class="stat-label">Soporte disponible</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="section" id="servicios">
+  <h2 class="section-title">Nuestros servicios</h2>
+  <p class="section-sub">Elige el plan que más te convenga y empieza hoy mismo</p>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterServices('all', this)">Todos</button>
+    <button class="filter-btn" onclick="filterServices('streaming', this)">🎬 Streaming</button>
+    <button class="filter-btn" onclick="filterServices('musica', this)">🎵 Música</button>
+    <button class="filter-btn" onclick="filterServices('herramientas', this)">🛠️ Herramientas</button>
+  </div>
+
+  <div class="services-grid" id="servicesGrid"></div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="section how-section" id="como-funciona">
+  <h2 class="section-title">¿Cómo funciona?</h2>
+  <p class="section-sub">En menos de 5 minutos tienes tu suscripción activa</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Elige tu servicio</div>
+      <div class="step-desc">Selecciona el plan que quieres y agrégalo al carrito.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Realiza tu pago</div>
+      <div class="step-desc">Paga con Mercado Pago (tarjeta, OXXO) o transferencia bancaria.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Recibe tu acceso</div>
+      <div class="step-desc">Te enviamos los datos por WhatsApp en minutos.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Disfruta y renueva</div>
+      <div class="step-desc">Te avisamos antes de que venza para que nunca pierdas tu acceso.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contacto">
+  <div class="footer-logo">Cupos<span>Fácil</span></div>
+  <p class="footer-text">Suscripciones digitales premium · Activación inmediata · Soporte por WhatsApp</p>
+  <a class="footer-wa" href="https://wa.me/15703344212?text=Hola%2C%20me%20interesa%20contratar%20un%20servicio%20de%20CuposFácil" target="_blank">
+    📲 Escríbenos al WhatsApp
+  </a>
+  <p class="footer-text" style="margin-top:16px">© 2025 CuposFácil · Servicios RN</p>
+</footer>
+
+<!-- BOTÓN FLOTANTE CARRITO -->
+<button class="cart-float" id="cartFloat" onclick="openCart()">
+  🛒 Ver carrito
+  <div class="cart-count" id="cartCount">0</div>
+</button>
+
+<!-- MODAL CARRITO / CHECKOUT -->
+<div class="modal-overlay" id="cartModal">
+  <div class="modal" id="modalContent">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">🛒 Tu carrito</div>
+      <button class="modal-close" onclick="closeCart()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  // ─── DATOS DE SERVICIOS ───────────────────────────────────────────────
+  const WHATSAPP = '15703344212'
+
+  const servicios = [
+    {
+      id: 'spotify',
+      nombre: 'Spotify Premium',
+      tipo: 'musica',
+      icono: '🎵',
+      iconoBg: '#1DB954',
+      precio: 79,
+      badge: 'HOT',
+      desc: 'Música sin anuncios, modo sin conexión y calidad de audio superior.',
+      features: ['Sin anuncios', 'Escucha sin conexión', 'Calidad de audio alta', 'Cupo familiar'],
+      activo: true
+    },
+    {
+      id: 'netflix',
+      nombre: 'Netflix',
+      tipo: 'streaming',
+      icono: '🎬',
+      iconoBg: '#E50914',
+      precio: 99,
+      badge: 'HOT',
+      desc: 'Series, películas y documentales en alta definición sin interrupciones.',
+      features: ['HD/4K disponible', 'Contenido exclusivo', 'Sin anuncios', 'Múltiples perfiles'],
+      activo: true
+    },
+    {
+      id: 'disney',
+      nombre: 'Disney+',
+      tipo: 'streaming',
+      icono: '✨',
+      iconoBg: '#0B3D91',
+      precio: 89,
+      badge: 'NEW',
+      desc: 'Disney, Marvel, Star Wars, Pixar y National Geographic en un solo lugar.',
+      features: ['Marvel y Star Wars', 'Contenido infantil', 'Descargas offline', 'HD incluido'],
+      activo: true
+    },
+    {
+      id: 'youtube',
+      nombre: 'YouTube Premium',
+      tipo: 'streaming',
+      icono: '▶️',
+      iconoBg: '#FF0000',
+      precio: 89,
+      badge: null,
+      desc: 'YouTube sin anuncios, reproducción en segundo plano y YouTube Music.',
+      features: ['Sin anuncios', 'Segundo plano', 'YouTube Music', 'Descargas'],
+      activo: true
+    },
+    {
+      id: 'hbo',
+      nombre: 'Max (HBO)',
+      tipo: 'streaming',
+      icono: '🎭',
+      iconoBg: '#5822C1',
+      precio: 89,
+      badge: null,
+      desc: 'HBO, Warner Bros y contenido Max exclusivo en una sola plataforma.',
+      features: ['Series HBO', 'Películas Warner', 'Contenido exclusivo', 'HD disponible'],
+      activo: false
+    },
+    {
+      id: 'amazon',
+      nombre: 'Amazon Prime',
+      tipo: 'streaming',
+      icono: '📦',
+      iconoBg: '#FF9900',
+      precio: 79,
+      badge: null,
+      desc: 'Prime Video con miles de series y películas más beneficios Prime.',
+      features: ['Prime Video', 'Prime Music', 'Entregas rápidas', 'Twitch Prime'],
+      activo: false
+    },
+    {
+      id: 'canva',
+      nombre: 'Canva Pro',
+      tipo: 'herramientas',
+      icono: '🎨',
+      iconoBg: '#7D2AE8',
+      precio: 79,
+      badge: 'NEW',
+      desc: 'Diseño gráfico profesional con miles de plantillas y recursos premium.',
+      features: ['Plantillas premium', 'Fondo removido', 'Marca de agua sin límite', 'Almacenamiento 1TB'],
+      activo: true
+    },
+    {
+      id: 'office',
+      nombre: 'Microsoft 365',
+      tipo: 'herramientas',
+      icono: '💼',
+      iconoBg: '#D83B01',
+      precio: 99,
+      badge: null,
+      desc: 'Word, Excel, PowerPoint y más en todos tus dispositivos con 1TB en OneDrive.',
+      features: ['Word, Excel, PowerPoint', '1TB en OneDrive', 'Outlook incluido', 'Múltiples dispositivos'],
+      activo: false
+    }
+  ]
+
+  // ─── ESTADO ───────────────────────────────────────────────────────────
+  let carrito = []
+  let filtroActual = 'all'
+  let adminMode = false
+  let checkoutStep = false
+
+  // ─── RENDER SERVICIOS ─────────────────────────────────────────────────
+  function renderServicios() {
+    const grid = document.getElementById('servicesGrid')
+    const filtrados = servicios.filter(s =>
+      filtroActual === 'all' || s.tipo === filtroActual
+    )
+
+    grid.innerHTML = filtrados.map(s => {
+      const inactivo = !s.activo && !adminMode ? 'inactive' : ''
+      const badge = s.badge
+        ? `<div class="badge-${s.badge === 'HOT' ? 'hot' : 'new'}">${s.badge}</div>`
+        : ''
+
+      return `
+        <div class="service-card ${inactivo}" data-id="${s.id}">
+          ${badge}
+          <div class="card-header">
+            <div class="service-icon" style="background:${s.iconoBg}20; border: 1px solid ${s.iconoBg}40">
+              ${s.icono}
+            </div>
+            <div>
+              <div class="service-name">${s.nombre}</div>
+              <div class="service-type">${s.tipo.charAt(0).toUpperCase() + s.tipo.slice(1)}</div>
+            </div>
+            ${adminMode ? `<button onclick="toggleServicio('${s.id}')" style="margin-left:auto;background:${s.activo ? '#ff475720' : '#00d4ff20'};border:1px solid ${s.activo ? '#ff4757' : '#00d4ff'};color:${s.activo ? '#ff4757' : '#00d4ff'};padding:4px 10px;border-radius:6px;font-size:0.75rem;cursor:pointer">${s.activo ? 'Desactivar' : 'Activar'}</button>` : ''}
+          </div>
+          <div class="card-body">
+            <p class="service-desc">${s.desc}</p>
+            <ul class="service-features">
+              ${s.features.map(f => `<li>${f}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="card-footer">
+            <div class="price-block">
+              <div class="price-label">Precio mensual</div>
+              <div class="price">$${s.precio}<span>/mes</span></div>
+            </div>
+            ${s.activo || adminMode ? `<button class="btn-add" onclick="agregarAlCarrito('${s.id}')">+ Agregar</button>` : `<span style="color:var(--muted);font-size:0.82rem">No disponible</span>`}
+          </div>
+        </div>
+      `
+    }).join('')
+  }
+
+  // ─── FILTROS ──────────────────────────────────────────────────────────
+  function filterServices(tipo, btn) {
+    filtroActual = tipo
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'))
+    btn.classList.add('active')
+    renderServicios()
+  }
+
+  // ─── CARRITO ──────────────────────────────────────────────────────────
+  function agregarAlCarrito(id) {
+    const servicio = servicios.find(s => s.id === id)
+    if (!servicio) return
+    if (carrito.find(c => c.id === id)) {
+      showToast(`${servicio.nombre} ya está en tu carrito`)
+      return
+    }
+    carrito.push(servicio)
+    actualizarCarrito()
+    showToast(`✅ ${servicio.nombre} agregado`)
+  }
+
+  function eliminarDelCarrito(id) {
+    carrito = carrito.filter(c => c.id !== id)
+    actualizarCarrito()
+    if (document.getElementById('cartModal').classList.contains('open')) {
+      renderCartModal()
+    }
+  }
+
+  function actualizarCarrito() {
+    const count = carrito.length
+    document.getElementById('cartCount').textContent = count
+    const flotante = document.getElementById('cartFloat')
+    if (count > 0) {
+      flotante.classList.add('visible')
+    } else {
+      flotante.classList.remove('visible')
+      closeCart()
+    }
+  }
+
+  // ─── MODAL CARRITO ────────────────────────────────────────────────────
+  function openCart() {
+    checkoutStep = false
+    document.getElementById('cartModal').classList.add('open')
+    renderCartModal()
+  }
+
+  function closeCart() {
+    document.getElementById('cartModal').classList.remove('open')
+    checkoutStep = false
+  }
+
+  function renderCartModal() {
+    const title = document.getElementById('modalTitle')
+    const body = document.getElementById('modalBody')
+    title.textContent = '🛒 Tu carrito'
+
+    if (carrito.length === 0) {
+      body.innerHTML = `
+        <div class="cart-empty">
+          <div class="cart-empty-icon">🛒</div>
+          <p>Tu carrito está vacío</p>
+          <p style="font-size:0.85rem;margin-top:8px">Agrega algún servicio para continuar</p>
+        </div>
+      `
+      return
+    }
+
+    const total = carrito.reduce((sum, c) => sum + c.precio, 0)
+
+    body.innerHTML = `
+      ${carrito.map(c => `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <div class="cart-item-icon" style="background:${c.iconoBg}20">${c.icono}</div>
+            <div>
+              <div class="cart-item-name">${c.nombre}</div>
+              <div class="cart-item-sub">Suscripción mensual</div>
+            </div>
+          </div>
+          <div class="cart-item-right">
+            <div class="cart-item-price">$${c.precio}</div>
+            <button class="cart-remove" onclick="eliminarDelCarrito('${c.id}')">✕</button>
+          </div>
+        </div>
+      `).join('')}
+
+      <div class="cart-total">
+        <div class="cart-total-label">Total mensual</div>
+        <div class="cart-total-price">$${total}</div>
+      </div>
+
+      <button class="btn-checkout" onclick="irACheckout()">
+        Continuar al pago →
+      </button>
+      <p class="checkout-note">🔒 Pago seguro · Activación en minutos</p>
+    `
+  }
+
+  function irACheckout() {
+    checkoutStep = true
+    const title = document.getElementById('modalTitle')
+    const body = document.getElementById('modalBody')
+    const total = carrito.reduce((sum, c) => sum + c.precio, 0)
+    const serviciosNombres = carrito.map(c => c.nombre).join(', ')
+
+    title.textContent = '💳 Finalizar pedido'
+    body.innerHTML = `
+      <div style="background:var(--bg3);border-radius:10px;padding:14px;margin-bottom:20px;font-size:0.88rem;color:var(--muted)">
+        📦 ${serviciosNombres} · <strong style="color:var(--cyan)">$${total}/mes</strong>
+      </div>
+
+      <div class="checkout-form">
+        <div class="form-group">
+          <label class="form-label">Tu nombre completo</label>
+          <input class="form-input" type="text" id="checkoutNombre" placeholder="Ej: Juan Pérez">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Número de WhatsApp</label>
+          <input class="form-input" type="tel" id="checkoutWA" placeholder="Ej: 6141234567">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Método de pago</label>
+          <div class="payment-methods">
+            <div class="payment-opt selected" id="payMP" onclick="selectPay('mp')">
+              <span class="pay-icon">💳</span>
+              <div>
+                <div style="font-weight:600">Mercado Pago</div>
+                <div style="font-size:0.75rem;color:var(--muted)">+$5 comisión</div>
+              </div>
+            </div>
+            <div class="payment-opt" id="payTrans" onclick="selectPay('trans')">
+              <span class="pay-icon">🏦</span>
+              <div>
+                <div style="font-weight:600">Transferencia</div>
+                <div style="font-size:0.75rem;color:var(--muted)">Sin comisión</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-checkout" onclick="finalizarPedido()">
+          Enviar pedido por WhatsApp 📲
+        </button>
+        <p class="checkout-note">Te contactaremos para completar el pago</p>
+      </div>
+    `
+  }
+
+  let metodoSeleccionado = 'mp'
+  function selectPay(metodo) {
+    metodoSeleccionado = metodo
+    document.getElementById('payMP').classList.toggle('selected', metodo === 'mp')
+    document.getElementById('payTrans').classList.toggle('selected', metodo === 'trans')
+  }
+
+  function finalizarPedido() {
+    const nombre = document.getElementById('checkoutNombre').value.trim()
+    const wa = document.getElementById('checkoutWA').value.trim()
+
+    if (!nombre || !wa) {
+      showToast('⚠️ Por favor completa todos los campos')
+      return
+    }
+
+    const total = carrito.reduce((sum, c) => sum + c.precio, 0)
+    const serviciosTexto = carrito.map(c => `• ${c.nombre} ($${c.precio}/mes)`).join('%0A')
+    const metodo = metodoSeleccionado === 'mp' ? 'Mercado Pago' : 'Transferencia bancaria'
+
+    const msg = `Hola, quiero contratar:%0A%0A${serviciosTexto}%0A%0A💰 Total: $${total}/mes%0A💳 Método de pago: ${metodo}%0A%0ANombre: ${nombre}%0ATeléfono: ${wa}`
+
+    window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, '_blank')
+
+    // Mostrar pantalla de éxito
+    document.getElementById('modalBody').innerHTML = `
+      <div class="success-modal">
+        <div class="success-icon">🎉</div>
+        <div class="success-title">¡Pedido enviado!</div>
+        <p class="success-text">
+          Te hemos redirigido a WhatsApp para completar tu pedido.<br><br>
+          En breve recibirás tus datos de acceso. ¡Gracias por elegirnos! 💜
+        </p>
+        <button class="btn-checkout" style="margin-top:24px" onclick="closeCart()">Cerrar</button>
+      </div>
+    `
+    document.getElementById('modalTitle').textContent = '✅ Pedido enviado'
+    carrito = []
+    actualizarCarrito()
+  }
+
+  // ─── ADMIN MODE ───────────────────────────────────────────────────────
+  function toggleAdminMode() {
+    adminMode = false
+    document.getElementById('adminBar').classList.remove('visible')
+    renderServicios()
+  }
+
+  function toggleServicio(id) {
+    const s = servicios.find(s => s.id === id)
+    if (s) { s.activo = !s.activo; renderServicios() }
+  }
+
+  // Activar admin con doble clic en el logo
+  document.querySelector('.logo').addEventListener('dblclick', () => {
+    adminMode = !adminMode
+    document.getElementById('adminBar').classList.toggle('visible', adminMode)
+    renderServicios()
+    if (adminMode) showToast('🛠️ Modo administrador activado')
+  })
+
+  // ─── UTILIDADES ───────────────────────────────────────────────────────
+  function scrollToServices() {
+    document.getElementById('servicios').scrollIntoView({ behavior: 'smooth' })
+  }
+
+  function openWhatsApp() {
+    window.open(`https://wa.me/${WHATSAPP}?text=Hola%2C%20me%20interesa%20contratar%20un%20servicio%20de%20CuposFácil%20%F0%9F%8E%B5`, '_blank')
+  }
+
+  // Cerrar modal al hacer clic fuera
+  document.getElementById('cartModal').addEventListener('click', function(e) {
+    if (e.target === this) closeCart()
+  })
+
+  // Toast
+  function showToast(msg) {
+    const t = document.createElement('div')
+    t.style.cssText = `position:fixed;bottom:90px;right:24px;background:#1e2d45;border:1px solid var(--border);color:var(--text);padding:10px 18px;border-radius:10px;font-size:0.88rem;z-index:300;animation:fadeIn 0.2s ease`
+    t.textContent = msg
+    document.body.appendChild(t)
+    setTimeout(() => t.remove(), 2500)
+  }
+
+  // ─── INIT ─────────────────────────────────────────────────────────────
+  renderServicios()
+</script>
+</body>
+</html>
